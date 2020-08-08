@@ -16,30 +16,44 @@ import javafx.stage.Stage;
  *
  * @author IgorKv
  */
-public class FileReader {
-    private FileData fileData;   
-    private Stage stage;
-    
-    public FileData fileOpen() throws FileNotFoundException, IOException{
-        fileData = new FileData();
+public class FileReaderAndSaveData {        
+       
+    /**
+     *
+     * @param stage
+     * @return
+     */
+    public File fileOpen(Stage stage) {
         // Диалоговое окно чтения файла        
         FileChooser fileChooser = new FileChooser();//Класс работы с диалогом выборки и сохранения
         fileChooser.setTitle("Open Document");//Заголовок диалога
         FileChooser.ExtensionFilter extFilter
                 = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");//Расширение
         fileChooser.getExtensionFilters().add(extFilter);
-        File file = fileChooser.showOpenDialog(stage);//Указываем текущую сцену CodeNote.mainStage
+        return fileChooser.showOpenDialog(stage);//Указываем текущую сцену 
+
+    }
+
+    /**
+     *
+     * @param file
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public FileData saveDataFromFile(File file) throws FileNotFoundException, IOException {
+        FileData fileData = new FileData();
         if (file != null) {
-            //Save
-           fileData.setFileAbsolutePath(file.getAbsolutePath());
+            //Save file absolute path
+            fileData.setFileAbsolutePath(file.getAbsolutePath());
             byte[] data;
             try (FileInputStream fis = new FileInputStream(file)) {
                 data = new byte[(int) file.length()];
                 fis.read(data);
             }
-            //создаем стринговую переменную со всем текстом
+            //Create a string variable with all the text
             fileData.setFileText(new String(data, "UTF-8"));
-            //создаем масив слов текста            
+            //Create an array of text words         
             fileData.setWords(fileData.getFileText().split(" "));
         }
         return fileData;
