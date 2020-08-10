@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author IgorKv
  */
-public class FileReaderAndSaveData {        
+public class FileOpenAndSaveData {        
        
     /**
      *
@@ -44,8 +44,11 @@ public class FileReaderAndSaveData {
     public FileData saveDataFromFile(File file) throws FileNotFoundException, IOException {
         FileData fileData = new FileData();
         if (file != null) {
+            //Save file
+            fileData.setFile(file);
             //Save file absolute path
             fileData.setFileAbsolutePath(file.getAbsolutePath());
+            //Save file data
             byte[] data;
             try (FileInputStream fis = new FileInputStream(file)) {
                 data = new byte[(int) file.length()];

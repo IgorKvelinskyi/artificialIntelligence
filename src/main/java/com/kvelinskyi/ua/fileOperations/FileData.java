@@ -5,6 +5,7 @@
  */
 package com.kvelinskyi.ua.fileOperations;
 
+import java.io.File;
 import lombok.Data;
 
 /**
@@ -12,7 +13,8 @@ import lombok.Data;
  * @author IgorKv
  */
 @Data
-public class FileData {    
+public class FileData { 
+    private File file;
     private String fileAbsolutePath;    
     private String fileText;
     private String[] words;    
